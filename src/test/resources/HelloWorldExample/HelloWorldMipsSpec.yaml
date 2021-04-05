@@ -1,0 +1,103 @@
+---
+architecture: "MIPS"
+assemblyOpTree:
+  rootToken: "statement"
+  assemblyOpTreeHash:
+    op:
+      - "reg"
+      - "imm"
+      - "LABEL"
+    reg:
+      - '"$1"'
+      - '"$at"'
+      - '"$a0"'
+      - '"$v0"'
+    statement:
+      - "mnem op*"
+    imm:
+      - "HEX"
+    mnem:
+      - '"ADDIU"'
+      - '"LUI"'
+      - '"ORI"'
+      - '"SYSCALL"'
+endian: "big"
+instructionFormatHash:
+  syscall:
+    fieldBitHash:
+      call: 32
+    fields:
+      - "call"
+    instructionName: "syscall"
+  I­-type:
+    fieldBitHash:
+      rs: 5
+      rt: 5
+      immediate: 16
+      opcode: 6
+    fields:
+      - "opcode"
+      - "rs"
+      - "rt"
+      - "immediate"
+    instructionName: "I­-type"
+minAdrUnit: 8
+mnemonicTable:
+  LUI:
+    globalFieldEncodingHash:
+      opcode: "001111"
+    mnemonic: "LUI"
+    operandFormatHash:
+      mnem reg, imm:
+        fieldBitHash:
+          rs: "00000"
+        instructionFormat:
+          - "I­-type"
+        mnemFormat: "mnem reg, imm"
+        operandFieldEncodings: "mnem rt immediate"
+    operandsFormats:
+      - "mnem reg, imm"
+  ORI:
+    globalFieldEncodingHash:
+      opcode: "001101"
+    mnemonic: "ORI"
+    operandFormatHash:
+      mnem reg, reg, LABEL:
+        fieldBitHash: {}
+        instructionFormat:
+          - "I­-type"
+        mnemFormat: "mnem reg, reg, LABEL"
+        operandFieldEncodings: "mnem rt rs immediate"
+    operandsFormats:
+      - "mnem reg, reg, LABEL"
+  ADDIU:
+    globalFieldEncodingHash:
+      opcode: "001001"
+    mnemonic: "ADDIU"
+    operandFormatHash:
+      mnem reg, reg, imm:
+        fieldBitHash: {}
+        instructionFormat:
+          - "I­-type"
+        mnemFormat: "mnem reg, reg, imm"
+        operandFieldEncodings: "mnem rt rs immediate"
+    operandsFormats:
+      - "mnem reg, reg, imm"
+  SYSCALL:
+    globalFieldEncodingHash:
+      call: "1100"
+    mnemonic: "SYSCALL"
+    operandFormatHash:
+      mnem:
+        fieldBitHash: {}
+        instructionFormat:
+          - "syscall"
+        mnemFormat: "mnem"
+        operandFieldEncodings: ""
+    operandsFormats:
+      - "mnem"
+registerHash:
+  $a0: "100"
+  $at: "1"
+  $1: "0"
+  $v0: "10"

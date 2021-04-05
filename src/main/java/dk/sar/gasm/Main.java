@@ -2,6 +2,9 @@ package dk.sar.gasm;
 
 import java.io.IOException;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.google.common.collect.Lists;
 
 import lombok.extern.slf4j.Slf4j;
@@ -48,16 +51,6 @@ public class Main {
 		try {
 			var file = new FileParser(args[0], args[1]);
 			var data = file.getData();
-
-//		try {
-//			var mapper = new ObjectMapper(new YAMLFactory());
-//			var json = mapper.writeValueAsString(data);
-//			System.out.println(json);
-//			// User user = mapper.readValue(yamlSource, User.class);
-//		} catch (JsonProcessingException e) {
-//			e.printStackTrace();
-//		}
-
 			var asm = new Assembler(data);
 
 			Assembler.writeLinesToFile("object_code.txt", asm.getObjectCode());

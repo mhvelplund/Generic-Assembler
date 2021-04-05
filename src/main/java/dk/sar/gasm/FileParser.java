@@ -6,8 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import dk.sar.gasm.data.DataSource;
-import dk.sar.gasm.spec.LegacySpecReader;
 import dk.sar.gasm.spec.SpecReader;
+import dk.sar.gasm.spec.YamlSpecReader;
 import lombok.Getter;
 
 /**
@@ -36,7 +36,8 @@ public class FileParser {
 		var lines = Files.readAllLines(Paths.get(new File(assemblyFile).getCanonicalPath()));
 		data.setAssemblyCode(lines);
 
-		SpecReader reader = new LegacySpecReader(specFile);
+//		SpecReader reader = new LegacySpecReader(specFile);
+		SpecReader reader = new YamlSpecReader(specFile);
 		data.setSpec(reader.getSpecFile());
 	}
 }

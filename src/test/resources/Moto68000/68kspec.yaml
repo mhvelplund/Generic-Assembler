@@ -1,0 +1,120 @@
+---
+architecture: "68000"
+assemblyOpTree:
+  rootToken: "statement"
+  assemblyOpTreeHash:
+    op:
+      - "adrMode"
+    addrReg:
+      - '"A0"'
+      - '"A1"'
+      - '"A2"'
+      - '"A3"'
+      - '"A4"'
+      - '"A5"'
+      - '"A6"'
+      - '"A7"'
+    regDirect:
+      - "dataReg"
+      - "addrReg"
+    absolute:
+      - "$HEX"
+    statement:
+      - "label? mnem op*"
+    imm:
+      - "#INT"
+    mnem:
+      - '"LINK"'
+      - '"BRA"'
+    label:
+      - "LABEL"
+    regIndirect:
+      - "simple"
+      - "postInc"
+      - "preDec"
+      - "addrOffset"
+    adrMode:
+      - "label"
+      - "regDirect"
+      - "regIndirect"
+      - "absolute"
+      - "imm"
+    dataReg:
+      - '"D0"'
+      - '"D1"'
+      - '"D2"'
+      - '"D3"'
+      - '"D4"'
+      - '"D5"'
+      - '"D6"'
+      - '"D7"'
+endian: "big"
+instructionFormatHash:
+  displacement:
+    instructionName: "displacement"
+    fieldBitHash:
+      dis: 16
+    fields:
+      - "dis"
+  opcode:
+    instructionName: "opcode"
+    fieldBitHash:
+      op: 13
+      reg: 3
+    fields:
+      - "op"
+      - "reg"
+  jump:
+    instructionName: "jump"
+    fieldBitHash:
+      op: 8
+      adr: 8
+    fields:
+      - "op"
+      - "adr"
+minAdrUnit: 8
+mnemonicTable:
+  BRA:
+    globalFieldEncodingHash:
+      op: "01100000"
+    mnemonic: "BRA"
+    operandFormatHash:
+      mnem label:
+        fieldBitHash: {}
+        instructionFormat:
+          - "jump"
+        mnemFormat: "mnem label"
+        operandFieldEncodings: "mnem adr"
+    operandsFormats:
+      - "mnem label"
+  LINK:
+    globalFieldEncodingHash:
+      op: "0100111001010"
+    mnemonic: "LINK"
+    operandFormatHash:
+      mnem regDirect, imm:
+        fieldBitHash: {}
+        instructionFormat:
+          - "opcode"
+          - "displacement"
+        mnemFormat: "mnem regDirect, imm"
+        operandFieldEncodings: "mnem reg #dis"
+    operandsFormats:
+      - "mnem regDirect, imm"
+registerHash:
+  D0: "0"
+  D1: "1"
+  D2: "10"
+  D3: "11"
+  A0: "0"
+  D4: "100"
+  A1: "1"
+  D5: "101"
+  A2: "10"
+  D6: "110"
+  A3: "11"
+  D7: "111"
+  A4: "100"
+  A5: "101"
+  A6: "110"
+  A7: "111"

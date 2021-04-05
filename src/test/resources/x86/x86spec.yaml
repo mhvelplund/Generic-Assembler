@@ -1,0 +1,262 @@
+---
+architecture: "x86"
+assemblyOpTree:
+  rootToken: "statement"
+  assemblyOpTreeHash:
+    operands:
+      - "adrMode"
+    baseInd:
+      - "[reg+reg]"
+    baseIndDisp:
+      - "[reg+imm]"
+    adrLabel:
+      - "LABEL"
+    reg32:
+      - '"eax"'
+      - '"ecx"'
+      - '"edx"'
+      - '"ebx"'
+      - '"esp"'
+      - '"ebp"'
+      - '"esi"'
+      - '"edi"'
+    dirReg:
+      - "[reg]"
+    imm:
+      - "INT"
+    dirMem:
+      - "[HEX]"
+    scale:
+      - "scaleOne"
+      - "scaleTwo"
+    scaleOne:
+      - "[imm+reg*1]"
+    label:
+      - "LABEL"
+    reg16:
+      - '"ax"'
+      - '"cx"'
+      - '"dx"'
+      - '"bx"'
+      - '"sp"'
+      - '"bp"'
+      - '"si"'
+      - '"di"'
+    reg8:
+      - '"al"'
+      - '"cl"'
+      - '"dl"'
+      - '"bl"'
+      - '"ah"'
+      - '"ch"'
+      - '"dh"'
+      - '"bh"'
+    baseIndScale:
+      - "[reg+reg*4]"
+    reg:
+      - "reg8"
+      - "reg16"
+      - "reg32"
+    scaleTwo:
+      - "[imm+reg*2]"
+    statement:
+      - "label? mnem operands*"
+    mnem:
+      - '"DIV"'
+      - '"ADD"'
+      - '"JMP"'
+    adrMode:
+      - "reg"
+      - "imm"
+      - "dirMem"
+      - "dirReg"
+      - "baseInd"
+      - "baseIndDisp"
+      - "scale"
+      - "baseIndScale"
+      - "adrLabel"
+endian: "big"
+instructionFormatHash:
+  displacement:
+    fieldBitHash:
+      lo: 24
+      ho: 8
+    fields:
+      - "ho"
+      - "lo"
+    instructionName: "displacement"
+  opcode:
+    fieldBitHash:
+      op: 6
+      s: 1
+      d: 1
+    fields:
+      - "op"
+      - "d"
+      - "s"
+    instructionName: "opcode"
+  jmp:
+    fieldBitHash:
+      op: 8
+      adr: 8
+    fields:
+      - "op"
+      - "adr"
+    instructionName: "jmp"
+  mod-r/m:
+    fieldBitHash:
+      mod: 2
+      reg: 3
+      rm: 3
+    fields:
+      - "mod"
+      - "reg"
+      - "rm"
+    instructionName: "mod-r/m"
+  sib:
+    fieldBitHash:
+      ss: 2
+      index: 3
+      base: 3
+    fields:
+      - "ss"
+      - "index"
+      - "base"
+    instructionName: "sib"
+minAdrUnit: 8
+mnemonicTable:
+  ADD:
+    globalFieldEncodingHash:
+      op: "000000"
+    mnemonic: "ADD"
+    operandFormatHash:
+      mnem reg32, scaleOne:
+        fieldBitHash:
+          ss: "00"
+          s: "1"
+          mod: "00"
+          lo: "0"
+          d: "1"
+          rm: "100"
+          base: "101"
+        instructionFormat:
+          - "opcode"
+          - "mod-r/m"
+          - "sib"
+          - "displacement"
+        mnemFormat: "mnem reg32, scaleOne"
+        operandFieldEncodings: "mnem reg [ho+index*1]"
+      mnem reg32, baseIndDisp:
+        fieldBitHash:
+          s: "1"
+          mod: "10"
+          lo: "0"
+          d: "1"
+        instructionFormat:
+          - "opcode"
+          - "mod-r/m"
+          - "displacement"
+        mnemFormat: "mnem reg32, baseIndDisp"
+        operandFieldEncodings: "mnem reg [rm+ho]"
+      mnem reg32, imm:
+        fieldBitHash:
+          s: "1"
+          mod: "00"
+          lo: "0"
+          d: "1"
+          rm: "101"
+        instructionFormat:
+          - "opcode"
+          - "mod-r/m"
+          - "displacement"
+        mnemFormat: "mnem reg32, imm"
+        operandFieldEncodings: "mnem reg ho"
+      mnem reg32, reg32:
+        fieldBitHash:
+          s: "1"
+          mod: "11"
+          d: "0"
+        instructionFormat:
+          - "opcode"
+          - "mod-r/m"
+        mnemFormat: "mnem reg32, reg32"
+        operandFieldEncodings: "mnem rm reg"
+      mnem reg8, reg8:
+        fieldBitHash:
+          s: "0"
+          mod: "11"
+          d: "0"
+        instructionFormat:
+          - "opcode"
+          - "mod-r/m"
+        mnemFormat: "mnem reg8, reg8"
+        operandFieldEncodings: "mnem rm reg"
+      mnem reg32, baseIndScale:
+        fieldBitHash:
+          ss: "10"
+          s: "1"
+          mod: "00"
+          d: "1"
+          rm: "100"
+        instructionFormat:
+          - "opcode"
+          - "mod-r/m"
+          - "sib"
+        mnemFormat: "mnem reg32, baseIndScale"
+        operandFieldEncodings: "mnem reg [base+index*4]"
+      mnem reg32, dirReg:
+        fieldBitHash:
+          s: "1"
+          mod: "00"
+          d: "1"
+        instructionFormat:
+          - "opcode"
+          - "mod-r/m"
+        mnemFormat: "mnem reg32, dirReg"
+        operandFieldEncodings: "mnem reg [rm]"
+    operandsFormats:
+      - "mnem reg8, reg8"
+      - "mnem reg32, reg32"
+      - "mnem reg32, dirReg"
+      - "mnem reg32, baseIndDisp"
+      - "mnem reg32, scaleOne"
+      - "mnem reg32, imm"
+      - "mnem reg32, baseIndScale"
+  JMP:
+    globalFieldEncodingHash:
+      op: "11101011"
+    mnemonic: "JMP"
+    operandFormatHash:
+      mnem adrLabel:
+        fieldBitHash: {}
+        instructionFormat:
+          - "jmp"
+        mnemFormat: "mnem adrLabel"
+        operandFieldEncodings: "mnem adr"
+    operandsFormats:
+      - "mnem adrLabel"
+registerHash:
+  esp: "100"
+  dh: "110"
+  ch: "101"
+  di: "111"
+  bh: "111"
+  ah: "100"
+  dl: "010"
+  cl: "001"
+  bl: "011"
+  al: "000"
+  edi: "111"
+  bp: "101"
+  ebp: "101"
+  dx: "010"
+  cx: "001"
+  bx: "011"
+  si: "110"
+  ax: "000"
+  edx: "010"
+  ebx: "011"
+  esi: "110"
+  ecx: "001"
+  sp: "100"
+  eax: "000"

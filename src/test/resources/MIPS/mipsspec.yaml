@@ -1,0 +1,263 @@
+---
+architecture: "MIPS"
+assemblyOpTree:
+  rootToken: "statement"
+  assemblyOpTreeHash:
+    op:
+      - "imm"
+      - "reg"
+      - "mem"
+      - "LABEL"
+    mem:
+      - "0xHEX"
+      - "imm(reg)"
+    reg:
+      - '"zero"'
+      - '"$at"'
+      - '"$a0"'
+      - '"$t0"'
+      - '"$t1"'
+      - '"$t2"'
+      - '"$t3"'
+      - '"$t4"'
+      - '"$t5"'
+      - '"$t6"'
+      - '"$t7"'
+      - '"$v0"'
+    statement:
+      - "label? mnem op* label?"
+    imm:
+      - "HEX"
+    mnem:
+      - '"ADD"'
+      - '"SB"'
+      - '"LUI"'
+      - '"LW"'
+      - '"ANDI"'
+      - '"ADDI"'
+      - '"AND"'
+      - '"LB"'
+      - '"LI"'
+      - '"ADDIU"'
+      - '"ORI"'
+      - '"syscall"'
+    label:
+      - "LABEL"
+endian: "big"
+instructionFormatHash:
+  syscall:
+    fieldBitHash:
+      call: 32
+    fields:
+      - "call"
+    instructionName: "syscall"
+  J-type:
+    fieldBitHash:
+      address: 26
+      opcode: 6
+    fields:
+      - "opcode"
+      - "address"
+    instructionName: "J-type"
+  R-type:
+    fieldBitHash:
+      rs: 5
+      rt: 5
+      rd: 5
+      func: 6
+      shamt: 5
+      opcode: 6
+    fields:
+      - "opcode"
+      - "rs"
+      - "rt"
+      - "rd"
+      - "shamt"
+      - "func"
+    instructionName: "R-type"
+  lw:
+    fieldBitHash:
+      generic: 32
+    fields:
+      - "generic"
+    instructionName: "lw"
+  I-type:
+    fieldBitHash:
+      rs: 5
+      rt: 5
+      immediate: 16
+      opcode: 6
+    fields:
+      - "opcode"
+      - "rs"
+      - "rt"
+      - "immediate"
+    instructionName: "I-type"
+minAdrUnit: 8
+mnemonicTable:
+  ADD:
+    globalFieldEncodingHash:
+      func: "100000"
+      shamt: "00000"
+      opcode: "000000"
+    mnemonic: "ADD"
+    operandFormatHash:
+      mnem reg, reg, reg:
+        fieldBitHash: {}
+        instructionFormat:
+          - "R-type"
+        mnemFormat: "mnem reg, reg, reg"
+        operandFieldEncodings: "mnem rd rs rt"
+    operandsFormats:
+      - "mnem reg, reg, reg"
+  LUI:
+    globalFieldEncodingHash:
+      opcode: "001111"
+    mnemonic: "LUI"
+    operandFormatHash:
+      mnem reg, imm:
+        fieldBitHash:
+          rs: "0"
+        instructionFormat:
+          - "I-type"
+        mnemFormat: "mnem reg, imm"
+        operandFieldEncodings: "mnem rt immediate"
+    operandsFormats:
+      - "mnem reg, imm"
+  syscall:
+    globalFieldEncodingHash:
+      call: "1100"
+    mnemonic: "syscall"
+    operandFormatHash:
+      mnem:
+        fieldBitHash: {}
+        instructionFormat:
+          - "syscall"
+        mnemFormat: "mnem"
+        operandFieldEncodings: ""
+    operandsFormats:
+      - "mnem"
+  ADDI:
+    globalFieldEncodingHash:
+      opcode: "001000"
+    mnemonic: "ADDI"
+    operandFormatHash:
+      mnem reg, reg, imm:
+        fieldBitHash: {}
+        instructionFormat:
+          - "I-type"
+        mnemFormat: "mnem reg, reg, imm"
+        operandFieldEncodings: "mnem rt rs immediate"
+    operandsFormats:
+      - "mnem reg, reg, imm"
+  LB:
+    globalFieldEncodingHash:
+      opcode: "100000"
+    mnemonic: "LB"
+    operandFormatHash:
+      mnem reg, mem:
+        fieldBitHash: {}
+        instructionFormat:
+          - "I-type"
+        mnemFormat: "mnem reg, mem"
+        operandFieldEncodings: "mnem rt immediate(rs)"
+    operandsFormats:
+      - "mnem reg, mem"
+  AND:
+    globalFieldEncodingHash:
+      func: "100100"
+      shamt: "00000"
+      opcode: "000000"
+    mnemonic: "AND"
+    operandFormatHash:
+      mnem reg, reg, reg:
+        fieldBitHash: {}
+        instructionFormat:
+          - "R-type"
+        mnemFormat: "mnem reg, reg, reg"
+        operandFieldEncodings: "mnem rd rs rt"
+    operandsFormats:
+      - "mnem reg, reg, reg"
+  ORI:
+    globalFieldEncodingHash:
+      opcode: "001101"
+    mnemonic: "ORI"
+    operandFormatHash:
+      mnem reg, reg, LABEL:
+        fieldBitHash: {}
+        instructionFormat:
+          - "I-type"
+        mnemFormat: "mnem reg, reg, LABEL"
+        operandFieldEncodings: "mnem rt rs immediate"
+    operandsFormats:
+      - "mnem reg, reg, LABEL"
+  LW:
+    globalFieldEncodingHash:
+      opcode: "100011"
+    mnemonic: "LW"
+    operandFormatHash:
+      mnem reg, LABEL:
+        fieldBitHash:
+          rs: "1"
+          generic: "00111100000000010001000000000001"
+        instructionFormat:
+          - "lw"
+          - "I-type"
+        mnemFormat: "mnem reg, LABEL"
+        operandFieldEncodings: "mnem rt immediate"
+    operandsFormats:
+      - "mnem reg, LABEL"
+  LI:
+    globalFieldEncodingHash: {}
+    mnemonic: "LI"
+    operandFormatHash:
+      mnem reg, imm:
+        fieldBitHash:
+          rs: "0"
+          opcode: "001001"
+        instructionFormat:
+          - "I-type"
+        mnemFormat: "mnem reg, imm"
+        operandFieldEncodings: "mnem rt immediate"
+    operandsFormats:
+      - "mnem reg, imm"
+  ADDIU:
+    globalFieldEncodingHash:
+      opcode: "001001"
+    mnemonic: "ADDIU"
+    operandFormatHash:
+      mnem reg, reg, imm:
+        fieldBitHash: {}
+        instructionFormat:
+          - "I-type"
+        mnemFormat: "mnem reg, reg, imm"
+        operandFieldEncodings: "mnem rt rs immediate"
+    operandsFormats:
+      - "mnem reg, reg, imm"
+registerHash:
+  $s0: "10110"
+  $s1: "10111"
+  $s2: "11000"
+  $s3: "11001"
+  $s4: "100000"
+  $s5: "100001"
+  $s6: "100010"
+  $s7: "100011"
+  zero: "0"
+  $a0: "100"
+  $a1: "101"
+  $a2: "110"
+  $a3: "111"
+  $at: "1"
+  $v0: "10"
+  $v1: "11"
+  $t0: "1000"
+  $t1: "1001"
+  $t2: "10000"
+  $t3: "10001"
+  $t4: "10010"
+  $t5: "10011"
+  $t6: "10100"
+  $t7: "10101"
+  $t8: "100100"
+  $t9: "100101"
