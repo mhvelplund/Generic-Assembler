@@ -1,5 +1,27 @@
 ---
 architecture: "MIPS"
+registerHash:
+  $a0: "100"
+  $at: "1"
+  $1: "0"
+  $v0: "10"
+instructionFormatHash:
+  syscall:
+    fieldBitHash:
+      call: 32
+    fields:
+      - "call"
+  I­-type:
+    fieldBitHash:
+      rs: 5
+      rt: 5
+      immediate: 16
+      opcode: 6
+    fields:
+      - "opcode"
+      - "rs"
+      - "rt"
+      - "immediate"
 assemblyOpTree:
   rootToken: "statement"
   assemblyOpTreeHash:
@@ -21,27 +43,6 @@ assemblyOpTree:
       - '"LUI"'
       - '"ORI"'
       - '"SYSCALL"'
-endian: "big"
-instructionFormatHash:
-  syscall:
-    fieldBitHash:
-      call: 32
-    fields:
-      - "call"
-    instructionName: "syscall"
-  I­-type:
-    fieldBitHash:
-      rs: 5
-      rt: 5
-      immediate: 16
-      opcode: 6
-    fields:
-      - "opcode"
-      - "rs"
-      - "rt"
-      - "immediate"
-    instructionName: "I­-type"
-minAdrUnit: 8
 mnemonicTable:
   LUI:
     globalFieldEncodingHash:
@@ -96,8 +97,5 @@ mnemonicTable:
         operandFieldEncodings: ""
     operandsFormats:
       - "mnem"
-registerHash:
-  $a0: "100"
-  $at: "1"
-  $1: "0"
-  $v0: "10"
+endian: "big"
+minAdrUnit: 8

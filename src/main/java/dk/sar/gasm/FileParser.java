@@ -36,7 +36,6 @@ public class FileParser {
 		var lines = Files.readAllLines(Paths.get(new File(assemblyFile).getCanonicalPath()));
 		data.setAssemblyCode(lines);
 
-//		SpecReader reader = new LegacySpecReader(specFile);
 		SpecReader reader = new YamlSpecReader(specFile);
 		data.setSpec(reader.getSpecFile());
 	}

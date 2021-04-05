@@ -50,7 +50,6 @@ instructionFormatHash:
       call: 32
     fields:
       - "call"
-    instructionName: "syscall"
   J-type:
     fieldBitHash:
       address: 26
@@ -58,7 +57,6 @@ instructionFormatHash:
     fields:
       - "opcode"
       - "address"
-    instructionName: "J-type"
   R-type:
     fieldBitHash:
       rs: 5
@@ -74,13 +72,11 @@ instructionFormatHash:
       - "rd"
       - "shamt"
       - "func"
-    instructionName: "R-type"
   lw:
     fieldBitHash:
       generic: 32
     fields:
       - "generic"
-    instructionName: "lw"
   I-type:
     fieldBitHash:
       rs: 5
@@ -92,7 +88,6 @@ instructionFormatHash:
       - "rs"
       - "rt"
       - "immediate"
-    instructionName: "I-type"
 minAdrUnit: 8
 mnemonicTable:
   ADD:

@@ -2,9 +2,6 @@ package dk.sar.gasm;
 
 import java.io.IOException;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.google.common.collect.Lists;
 
 import lombok.extern.slf4j.Slf4j;
@@ -43,8 +40,8 @@ public class Main {
 			System.exit(1);
 		}
 
-		if (!args[0].endsWith(".txt") || !args[1].endsWith(".txt")) {
-			log.error("Input is limited to two .txt files.");
+		if (!args[0].endsWith(".yaml") || !args[1].endsWith(".asm")) {
+			log.error("Input is limited to two files.");
 			System.exit(1);
 		}
 

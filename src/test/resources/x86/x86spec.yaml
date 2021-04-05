@@ -84,7 +84,6 @@ instructionFormatHash:
     fields:
       - "ho"
       - "lo"
-    instructionName: "displacement"
   opcode:
     fieldBitHash:
       op: 6
@@ -94,7 +93,6 @@ instructionFormatHash:
       - "op"
       - "d"
       - "s"
-    instructionName: "opcode"
   jmp:
     fieldBitHash:
       op: 8
@@ -102,7 +100,6 @@ instructionFormatHash:
     fields:
       - "op"
       - "adr"
-    instructionName: "jmp"
   mod-r/m:
     fieldBitHash:
       mod: 2
@@ -112,7 +109,6 @@ instructionFormatHash:
       - "mod"
       - "reg"
       - "rm"
-    instructionName: "mod-r/m"
   sib:
     fieldBitHash:
       ss: 2
@@ -122,7 +118,6 @@ instructionFormatHash:
       - "ss"
       - "index"
       - "base"
-    instructionName: "sib"
 minAdrUnit: 8
 mnemonicTable:
   ADD:

@@ -51,13 +51,11 @@ assemblyOpTree:
 endian: "big"
 instructionFormatHash:
   displacement:
-    instructionName: "displacement"
     fieldBitHash:
       dis: 16
     fields:
       - "dis"
   opcode:
-    instructionName: "opcode"
     fieldBitHash:
       op: 13
       reg: 3
@@ -65,7 +63,6 @@ instructionFormatHash:
       - "op"
       - "reg"
   jump:
-    instructionName: "jump"
     fieldBitHash:
       op: 8
       adr: 8

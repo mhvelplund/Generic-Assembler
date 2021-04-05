@@ -39,7 +39,7 @@ public class RegressionTest {
 	@Test
 	public void testHelloWorldExample() throws Exception {
 		var specName = "HelloWorldExample/HelloWorldMipsSpec.yaml";
-		var assemblyName = "HelloWorldExample/HelloWorldMipsAssembly.txt";
+		var assemblyName = "HelloWorldExample/HelloWorldMipsAssembly.asm";
 		var data = fileParserRegressionTest(specName, assemblyName);
 		List<String> expected = Lists.newArrayList(
 			"0:         48 65 6C 6C 6F 20 57 6F 72 6C 64 ",
@@ -54,7 +54,7 @@ public class RegressionTest {
 	@Test
 	public void testMIPS() throws Exception {
 		var specName = "MIPS/mipsspec.yaml";
-		var assemblyName = "MIPS/mipsassembly.txt";
+		var assemblyName = "MIPS/mipsassembly.asm";
 		var data = fileParserRegressionTest(specName, assemblyName);
 		List<String> expected = Lists.newArrayList(
 			"0:         48 65 6C 6C 6F 2C 20 57 6F 72 6C 64 ",
@@ -69,7 +69,7 @@ public class RegressionTest {
 	@Test
 	public void testMotorola68K() throws Exception {
 		var specName = "Moto68000/68kspec.yaml";
-		var assemblyName = "Moto68000/68kassembly.txt";
+		var assemblyName = "Moto68000/68kassembly.asm";
 		var data = fileParserRegressionTest(specName, assemblyName);
 		List<String> expected = Lists.newArrayList(
 			"0:         4E 56 00 C8 ",
@@ -83,7 +83,7 @@ public class RegressionTest {
 	@Test
 	public void testX86() throws Exception {
 		var specName = "x86/x86spec.yaml";
-		var assemblyName = "x86/x86assembly.txt";
+		var assemblyName = "x86/x86assembly.asm";
 		var data = fileParserRegressionTest(specName, assemblyName);
 		List<String> expected = Lists.newArrayList(
 			"0:         01 C1 ",
