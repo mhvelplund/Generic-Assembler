@@ -1,4 +1,4 @@
-package dk.sar.gasm;
+package dk.sar.gasm.data;
 
 /**
  * Eddie Graham

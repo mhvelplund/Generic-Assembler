@@ -17,6 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import dk.sar.gasm.data.DataSource;
+import dk.sar.gasm.data.Mnemonic;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
  * @author Eddie Graham
  */
 @Slf4j
+@SuppressWarnings("deprecation")
 public class Assembler {
 	public static String binaryFormatted(String binary, int bits) {
 		var initialLength = binary.length();
@@ -154,7 +157,8 @@ public class Assembler {
 	private int insNumber;
 	private List<List<String>> legitAssemblyOpTreePaths;
 	private int locationCounter;
-	@Getter private List<String> objectCode;
+	@Getter
+	private List<String> objectCode;
 	private HashMap<String, Integer> symbolTable;
 
 	/**

@@ -1,6 +1,6 @@
 package dk.sar.gasm;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import com.google.common.collect.Lists;
 
@@ -65,7 +65,7 @@ public class Main {
 			Assembler.writeLinesToFile("object_code.txt", Lists.newArrayList(e.getMessage()));
 			Assembler.writeLinesToFile("spec_error_report.txt", e.getErrorReport());
 			System.exit(1);
-		} catch (AssemblerException | FileNotFoundException e) {
+		} catch (AssemblerException | IOException e) {
 			System.exit(1);
 		}
 	}

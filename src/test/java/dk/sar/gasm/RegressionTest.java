@@ -9,6 +9,9 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 
+import dk.sar.gasm.data.DataSource;
+
+@SuppressWarnings("deprecation")
 public class RegressionTest {
 	private void assemblerRegressionTest(List<String> expected, DataSource data) throws Exception {
 		try {
